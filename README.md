@@ -38,17 +38,19 @@ This project is a high-performance **Next.js (App Router)** application implemen
 npm install
 # or
 yarn install
+```
 
-2. Run the Development Server
-Bash
-
+### 2. Run the Development Server
+```bash
 npm run dev
-3. Open the App
-Visit http://localhost:3000 in your browser.
+```
 
-📂 Project Structure
-Plaintext
+### 3. Open the App
+Visit [http://localhost:3000](http://localhost:3000) in your browser.
 
+📂 **Project Structure**
+
+```bash
 app/
 ├─ api/
 │  └─ inquiries/
@@ -72,59 +74,50 @@ app/
 ├─ page.tsx              # Main Kanban Page
 └─ types/
    └─ inquiry.ts         # Shared TypeScript interfaces
-🔄 Data Flow & Logic
-Drag & Drop Logic
-The board uses @dnd-kit/core. When a card is dropped into a new column:
+   ```
 
-The UI updates optimistically via Zustand.
+🔄 **Data Flow & Logic**
 
-An asynchronous PATCH request is sent to /api/inquiries/[id].
+**Drag & Drop Logic**  
+The board uses `@dnd-kit/core`. When a card is dropped into a new column:
 
-If the request fails, the UI rolls back to the previous state to ensure data integrity.
+- The UI updates optimistically via Zustand.
+- An asynchronous PATCH request is sent to `/api/inquiries/[id]`.
+- If the request fails, the UI rolls back to the previous state to ensure data integrity.
 
-State Management
+**State Management**  
 Zustand handles the heavy lifting for client-side state. It manages:
 
-The master list of inquiries.
+- The master list of inquiries.
+- Active filter states.
+- Global loading and error states.
 
-Active filter states.
-
-Global loading and error states.
-
-Why "use client" is Required
+**Why "use client" is Required**  
 This project leverages React Client Components for:
 
-Browser APIs: Drag-and-drop relies on Pointer and Touch events.
+- **Browser APIs:** Drag-and-drop relies on Pointer and Touch events.
+- **Interactivity:** Real-time filtering and modal state require `useState` and `useEffect`.
+- **Navigation:** Using `useSearchParams` to sync UI state with the URL.
 
-Interactivity: Real-time filtering and modal state require useState and useEffect.
-
-Navigation: Using useSearchParams to sync UI state with the URL.
-
-🧪 Mock Backend
+🧪 **Mock Backend**  
 The application includes a built-in mock backend using Next.js Route Handlers:
 
-In-Memory Storage: Uses a global variable to simulate a database.
+- **In-Memory Storage:** Uses a global variable to simulate a database.
+- **Network Latency:** Simulates real-world conditions with a slight delay.
+- **Restful Design:** Supports GET for filtered data and PATCH for updates.
 
-Network Latency: Simulates real-world conditions with a slight delay.
-
-Restful Design: Supports GET for filtered data and PATCH for updates.
-
-📦 Deployment
+📦 **Deployment**  
 The easiest way to deploy is via Vercel:
 
-Push your code to GitHub.
+1. Push your code to GitHub.
+2. Import the project into Vercel.
+3. Vercel will automatically detect Next.js and deploy.
 
-Import the project into Vercel.
+For more details, see the [Next.js Deployment Documentation](https://nextjs.org/docs/deployment).
 
-Vercel will automatically detect Next.js and deploy.
+📚 **Learn More**
 
-For more details, see the Next.js Deployment Documentation.
-
-📚 Learn More
-Next.js Documentation
-
-Dnd Kit
-
-Zustand Github
-
-Tailwind CSS Documentation
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Dnd Kit](https://dndkit.com/)
+- [Zustand Github](https://github.com/pmndrs/zustand)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
