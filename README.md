@@ -1,36 +1,130 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 📋 Inquiry Kanban Board
 
-## Getting Started
+This project is a high-performance **Next.js (App Router)** application implementing an **Inquiry Kanban Board** for a B2B event management ERP system. It allows staff to visually manage hotel inquiries through multiple business phases with drag-and-drop, real-time filtering, and detailed analytics.
 
-First, run the development server:
+---
 
+## ✨ Features
+
+- **Kanban Workflow**: 4 distinct inquiry phases:  
+  `New → Sent to Hotels → Offers Received → Completed`
+- **Drag & Drop**: Seamlessly move inquiries between columns powered by `@dnd-kit`.
+- **Real-time Filtering**:
+  - Fuzzy search by Client Name.
+  - Minimum potential value (CHF).
+  - Event date range picker.
+- **Dynamic Analytics**: Column totals for inquiry counts and total potential value per phase.
+- **Inquiry Detail Modal**: Full data view with phase-change dropdowns and optimistic UI updates.
+- **Persistent State**: Filters sync directly to URL query parameters for shareable views.
+
+---
+
+## 🛠 Tech Stack
+
+| Tool | Purpose |
+| :--- | :--- |
+| **Next.js 14+** | App Router, Route Handlers, and Server Components |
+| **TypeScript** | Strict type safety across the full stack |
+| **Zustand** | Lightweight global state management |
+| **Tailwind CSS** | Utility-first styling & responsive design |
+| **@dnd-kit** | Accessible, headless drag-and-drop primitives |
+
+---
+
+## 🚀 Getting Started
+
+### 1. Install Dependencies
 ```bash
+npm install
+# or
+yarn install
+
+2. Run the Development Server
+Bash
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+3. Open the App
+Visit http://localhost:3000 in your browser.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+📂 Project Structure
+Plaintext
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+app/
+├─ api/
+│  └─ inquiries/
+│     ├─ route.ts        # GET inquiries with filters
+│     ├─ [id]/route.ts   # PATCH inquiry (phase update)
+│     └─ db.ts           # In-memory mock database
+│
+├─ _components/
+│  ├─ board/             # DnD context, Columns, and Cards
+│  ├─ filters/           # Search, Sliders, and Date Pickers
+│  ├─ modal/             # Detail view implementation
+│  └─ ui/                # Shared UI elements (Loaders, etc.)
+│
+├─ _store/
+│  └─ inquiryStore.ts    # Zustand global state
+│
+├─ _lib/
+│  ├─ formatDate.ts      # Date formatting utilities
+│  └─ api.ts             # Fetch wrappers
+│
+├─ page.tsx              # Main Kanban Page
+└─ types/
+   └─ inquiry.ts         # Shared TypeScript interfaces
+🔄 Data Flow & Logic
+Drag & Drop Logic
+The board uses @dnd-kit/core. When a card is dropped into a new column:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+The UI updates optimistically via Zustand.
 
-## Learn More
+An asynchronous PATCH request is sent to /api/inquiries/[id].
 
-To learn more about Next.js, take a look at the following resources:
+If the request fails, the UI rolls back to the previous state to ensure data integrity.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+State Management
+Zustand handles the heavy lifting for client-side state. It manages:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+The master list of inquiries.
 
-## Deploy on Vercel
+Active filter states.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Global loading and error states.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Why "use client" is Required
+This project leverages React Client Components for:
+
+Browser APIs: Drag-and-drop relies on Pointer and Touch events.
+
+Interactivity: Real-time filtering and modal state require useState and useEffect.
+
+Navigation: Using useSearchParams to sync UI state with the URL.
+
+🧪 Mock Backend
+The application includes a built-in mock backend using Next.js Route Handlers:
+
+In-Memory Storage: Uses a global variable to simulate a database.
+
+Network Latency: Simulates real-world conditions with a slight delay.
+
+Restful Design: Supports GET for filtered data and PATCH for updates.
+
+📦 Deployment
+The easiest way to deploy is via Vercel:
+
+Push your code to GitHub.
+
+Import the project into Vercel.
+
+Vercel will automatically detect Next.js and deploy.
+
+For more details, see the Next.js Deployment Documentation.
+
+📚 Learn More
+Next.js Documentation
+
+Dnd Kit
+
+Zustand Github
+
+Tailwind CSS Documentation
