@@ -18,11 +18,10 @@ export default function InquiryCard({
   
   const { selectInquiry } = useInquiryStore();
 
-  const style = transform
-    ? {
-        transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-      }
-    : undefined;
+  const style = {
+    transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
+    touchAction: "none",
+  };
 
   if (isDragging && !isOverlay) {
     return (
@@ -39,7 +38,7 @@ export default function InquiryCard({
       style={style}
       {...attributes}
       {...listeners}
-      onClick={(e) => {
+      onClick={() => {
         if (transform && (Math.abs(transform.x) > 5 || Math.abs(transform.y) > 5)) return;
         selectInquiry(inquiry);
       }}
