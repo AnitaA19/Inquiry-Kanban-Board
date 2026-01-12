@@ -49,7 +49,7 @@
 ---
 
 ## What I Would Improve With More Time
-1. **Persistence:** Connect to a real Postgres/Prisma backend.
+1. **Persistence:** Connect to a real backend.
 2. **Sort Order:** Currently, items are grouped by phase but not ordered within the column. I would add a `position` field to allow manual reordering (top-to-bottom).
 3. **Keyboard Navigation:** Allow moving cards between columns using arrow keys + Enter for full accessibility (A11Y).
 4. **Toast Notifications:** Add a notification (e.g., Sonner) to alert the user if an optimistic update fails and a rollback occurs.
